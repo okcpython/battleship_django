@@ -1,0 +1,20 @@
+{% extends "battleship_viewer/base.html" %}
+
+{% block content %}
+    <h2>{{ game }}</h2>
+    <p>
+        Player1: {{ game.player1 }}<br />
+        Player2: {{ game.player2 }}<br />
+        Grid Size (w x h): {{ game.grid_width }} x {{ game.grid_height }}<br />
+        Num Ships: {{ game.num_ships_per_player }}<br />
+        Num Moves: {{ game.move_set.count }}<br />
+        Num Shots: {{ game.num_shots }}<br />
+        Winner: {{ game.winner }}
+    </p>
+    <p>
+        <a href={% url 'list_moves' game.pk %}>List Moves</a>
+    </p>
+    <p>
+        <a href={% url 'move-detail' game.pk 0 %}>Replay Game</a>
+    </p>
+{% endblock %}

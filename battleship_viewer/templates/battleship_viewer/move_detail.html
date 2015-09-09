@@ -1,0 +1,58 @@
+{% extends "battleship_viewer/base.html" %}
+{% load battleship_tags %}
+
+{% block content %}
+    <h2>{{ game }}</h2>
+    <h3>{{ game.player1 }}</h3>
+    <table border="1" cellpadding="1">
+        <tbody>
+            {% for i in grid_height_range %}
+                <tr>
+                    {% for j in grid_width_range %}
+                        {% as_tuple j i as location %}
+                        {% if location in player2_shots %}
+                            <td style="background-color: red">{{ j }} {{ i }}</td>
+                        {% elif location in player1_ship_locations %}
+                            <td style="background-color: lightblue">{{ j }} {{ i }}</td>
+                        {% else %}
+                            <td>{{ j }} {{ i }}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3>{{ game.player2 }}</h3>
+    <table border="1" cellpadding="1">
+        <tbody>
+            {% for i in grid_height_range %}
+                <tr>
+                    {% for j in grid_width_range %}
+                        {% as_tuple j i as location %}
+                        {% if location in player1_shots %}
+                            <td style="background-color: red">{{ j }} {{ i }}</td>
+                        {% elif location in player2_ship_locations %}
+                            <td style="background-color: lightblue">{{ j }} {{ i }}</td>
+                        {% else %}
+                            <td>{{ j }} {{ i }}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if not previous_move == None %}
+        <a href={% url 'move-detail' game.pk previous_move %}>Previous</a>
+    {% else %}
+        Previous
+    {% endif %}
+    {% if next_move %}
+        <a href={% url 'move-detail' game.pk next_move %}>Next</a>
+    {% else %}
+        Next
+    {% endif %}
+    <p>
+        <a href={% url 'game-detail' game.pk %}>Game Details</a>
+    </p>
+{% endblock %}

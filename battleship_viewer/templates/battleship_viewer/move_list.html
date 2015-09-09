@@ -1,0 +1,21 @@
+{% extends "battleship_viewer/base.html" %}
+
+{% block content %}
+    <h2>Moves for {{ game }}</h2>
+    <ol>
+            <li><a href={% url 'move-detail' game.pk 0 %}>Game Setup</a></li>
+        {% for move in move_list %}
+            <li><a href={% url 'move-detail' game.pk move.pk %}>{{ move }}</a>
+            <ul>
+            {% for shot in move.shot_set.all %}
+                <li>{{ shot }}</li>
+            {% empty %}
+                <li>No Shots</li>
+            {% endfor %}
+            </ul>
+            </li>
+        {% empty %}
+            <li>No Moves Yet</li>
+        {% endfor %}
+    </ol>
+{% endblock %}

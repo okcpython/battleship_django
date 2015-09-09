@@ -1,0 +1,8 @@
+{% extends "battleship_viewer/base.html" %}
+
+{% block content %}
+    <h1>Battleship Viewer</h1>
+    <a href={% url 'import_observer_log' %}>Import Observer Log</a>
+    <br />
+    <a href={% url 'list_games' %}>View Games</a>
+{% endblock %}

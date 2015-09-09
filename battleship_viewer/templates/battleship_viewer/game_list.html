@@ -1,0 +1,12 @@
+{% extends "battleship_viewer/base.html" %}
+
+{% block content %}
+    <h2>Games</h2>
+    <ul>
+        {% for game in game_list %}
+            <li><a href={% url 'game-detail' game.pk %}>{{ game }}</a></li>
+        {% empty %}
+            <li>No Games Yet</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
