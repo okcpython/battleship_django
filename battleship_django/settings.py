@@ -30,7 +30,8 @@ ALLOWED_HOSTS = []
 INTERNAL_IPS = []
 
 def show_toolbar(request):
-    return DEBUG
+    return False
+
 DEBUG_TOOLBAR_CONFIG = {
     "SHOW_TOOLBAR_CALLBACK" : show_toolbar,
 }
@@ -105,7 +106,14 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
+# Static asset configuration
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
+print "STATIC_ROOT:", STATIC_ROOT
 
-STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+print "DIRS:", STATICFILES_DIRS

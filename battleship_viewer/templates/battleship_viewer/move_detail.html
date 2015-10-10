@@ -1,58 +1,71 @@
 {% extends "battleship_viewer/base.html" %}
+{% load static from staticfiles %}
 {% load battleship_tags %}
 
 {% block content %}
-    <h2>{{ game }}</h2>
-    <h3>{{ game.player1 }}</h3>
-    <table border="1" cellpadding="1">
+    <link rel="stylesheet" type="text/css" href="{% static "css/game_replay.css" %}">
+    <h2>{{ game_label }}</h2>
+    <div class="players">
+    <div class="player player1">
+    <h3 id="player1_name" class="player_name">{{ player1_name }}</h3>
+    <table class="player player1">
         <tbody>
-            {% for i in grid_height_range %}
+            {% for row in player1_grid %}
                 <tr>
-                    {% for j in grid_width_range %}
-                        {% as_tuple j i as location %}
-                        {% if location in player2_shots %}
-                            <td style="background-color: red">{{ j }} {{ i }}</td>
-                        {% elif location in player1_ship_locations %}
-                            <td style="background-color: lightblue">{{ j }} {{ i }}</td>
-                        {% else %}
-                            <td>{{ j }} {{ i }}</td>
-                        {% endif %}
+                    {% for cell in row %}
+                        <td class="{{ cell.cell_state }}"></td>
                     {% endfor %}
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-    <h3>{{ game.player2 }}</h3>
-    <table border="1" cellpadding="1">
+    </div>
+    <div class="player player2">
+    <h3 id="player2_name" class="player_name">{{ player2_name }}</h3>
+    <table class="player player2">
         <tbody>
-            {% for i in grid_height_range %}
+            {% for row in player2_grid %}
                 <tr>
-                    {% for j in grid_width_range %}
-                        {% as_tuple j i as location %}
-                        {% if location in player1_shots %}
-                            <td style="background-color: red">{{ j }} {{ i }}</td>
-                        {% elif location in player2_ship_locations %}
-                            <td style="background-color: lightblue">{{ j }} {{ i }}</td>
-                        {% else %}
-                            <td>{{ j }} {{ i }}</td>
-                        {% endif %}
+                    {% for cell in row %}
+                        <td class="{{ cell.cell_state }}"></td>
                     {% endfor %}
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+    </div>
+    </div>
+    <div style="clear:both;"></div>
 
     {% if not previous_move == None %}
-        <a href={% url 'move-detail' game.pk previous_move %}>Previous</a>
+        <a href="{% url 'move-detail' game.pk previous_move %}">Previous</a>
     {% else %}
         Previous
     {% endif %}
     {% if next_move %}
-        <a href={% url 'move-detail' game.pk next_move %}>Next</a>
+        <a href="{% url 'move-detail' game.pk next_move %}">Next</a>
     {% else %}
         Next
     {% endif %}
     <p>
-        <a href={% url 'game-detail' game.pk %}>Game Details</a>
+        <a href="{% url 'game-detail' game.pk %}">Game Details</a>
     </p>
+    <script type="text/javascript">
+    function check_key(e)
+    {
+        {% if not previous_move == None %}
+            if (e.keyCode == '37')
+            {
+                window.location = "{% url 'move-detail' game.pk previous_move %}";
+            }
+        {% endif %}
+        {% if next_move %}
+            if (e.keyCode == '39')
+            {
+                window.location = "{% url 'move-detail' game.pk next_move %}";
+            }
+        {% endif %}
+    }
+    document.onkeydown = check_key;
+    </script>
 {% endblock %}

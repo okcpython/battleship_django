@@ -1,0 +1,54 @@
+div.player {
+    float: left;
+    padding-right: 20px;
+}
+
+table.player {
+    border: 1px solid black;
+}
+
+table.player tbody tr td {
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat, no-repeat;
+}
+
+td.empty {
+    background-image: url("/static/images/empty.png");
+}
+
+td.hit {
+    background-image: url("/static/images/hit.png");
+}
+
+td.just_hit {
+    background-image: url("/static/images/just_hit.png");
+}
+
+td.miss {
+    background-image: url("/static/images/miss.png");
+}
+
+td.just_missed {
+    background-image: url("/static/images/just_missed.png");
+}
+
+td.ship_middle {
+    background-image: url("/static/images/ship_middle.png");
+}
+
+td.ship_bottom {
+    background-image: url("/static/images/ship_bottom.png");
+}
+
+td.ship_top {
+    background-image: url("/static/images/ship_top.png");
+}
+
+td.ship_left {
+    background-image: url("/static/images/ship_left.png");
+}
+
+td.ship_right {
+    background-image: url("/static/images/ship_right.png");
+}
