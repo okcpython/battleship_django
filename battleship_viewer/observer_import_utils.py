@@ -53,7 +53,10 @@ def get_winner(f):
         return None
 
     winner_name = winner_data[0].rsplit(" ", 1)[0]
-    return Player.objects.get(name=winner_name)
+    if winner_name == "tie":
+        return None
+    else:
+        return Player.objects.get(name=winner_name)
 
 
 #######################################################################

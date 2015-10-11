@@ -180,7 +180,7 @@ class Move(models.Model):
                 return CellState.EMPTY
 
     def __unicode__(self):
-        return u'Game %s Move %s' % (self.game, self.order)
+        return u'%s - Move %s' % (self.game, self.order)
 
     class Meta:
         ordering = ['order']

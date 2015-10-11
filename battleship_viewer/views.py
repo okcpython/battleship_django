@@ -67,10 +67,10 @@ class MoveDetailView(DetailView):
         move = self.get_object()
         game = move.game
         context['game'] = game
-        context["game_label"] = unicode(game)
         context["player1_name"] = game.player1.name
         context["player2_name"] = game.player2.name
         if self.first_run:
+            context["move_label"] = unicode(game)
             context['previous_move'] = None
             context['next_move'] = 1
             context["player1_grid"] = self.get_starting_grid(game, game.player1)
@@ -78,6 +78,7 @@ class MoveDetailView(DetailView):
             context["player1_shots"] = ""
             context["player2_shots"] = ""
         else:
+            context["move_label"] = unicode(move)
             context['previous_move'] = move.get_previous_move_order()
             context['next_move'] = move.get_next_move_order()
             context["player1_grid"] = self.get_player_grid(move, game.player1)

@@ -4,7 +4,8 @@
     <h2>Games</h2>
     <ul>
         {% for game in game_list %}
-            <li><a href={% url 'game-detail' game.pk %}>{{ game }}</a></li>
+{#            <li><a href={% url 'game-detail' game.pk %}>{{ game }}</a></li>#}
+            <li><a href={% url 'move-detail' game.pk 0 %}>{{ game }}</a></li>
         {% empty %}
             <li>No Games Yet</li>
         {% endfor %}
