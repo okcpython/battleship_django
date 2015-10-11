@@ -121,7 +121,18 @@ class ShipLocation(models.Model):
 #######################################################################
 class Move(models.Model):
     game = models.ForeignKey(Game)
+    player1_text = models.CharField(max_length=100)
+    player2_text = models.CharField(max_length=100)
     order = models.IntegerField(db_index=True)
+
+    def add_player_text(self, player, data):
+        data = "|" + "|".join(data) + "|"
+        if player == self.game.player1:
+            self.player1_text = data
+            self.save(update_fields=["player1_text"])
+        else:
+            self.player2_text = data
+            self.save(update_fields=["player2_text"])
 
     def add_shot(self, player, x, y):
         Shot.objects.create(move=self, player=player, x=x, y=y)

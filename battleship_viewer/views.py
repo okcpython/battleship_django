@@ -73,15 +73,17 @@ class MoveDetailView(DetailView):
         if self.first_run:
             context['previous_move'] = None
             context['next_move'] = 1
+            context["player1_grid"] = self.get_starting_grid(game, game.player1)
+            context["player2_grid"] = self.get_starting_grid(game, game.player2)
+            context["player1_shots"] = ""
+            context["player2_shots"] = ""
         else:
             context['previous_move'] = move.get_previous_move_order()
             context['next_move'] = move.get_next_move_order()
-        if self.first_run:
-            context["player1_grid"] = self.get_starting_grid(game, game.player1)
-            context["player2_grid"] = self.get_starting_grid(game, game.player2)
-        else:
             context["player1_grid"] = self.get_player_grid(move, game.player1)
             context["player2_grid"] = self.get_player_grid(move, game.player2)
+            context["player1_shots"] = move.player1_text
+            context["player2_shots"] = move.player2_text
         return context
 
     ####################################################################

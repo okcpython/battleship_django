@@ -110,10 +110,7 @@ USE_TZ = True
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
-print "STATIC_ROOT:", STATIC_ROOT
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-
-print "DIRS:", STATICFILES_DIRS

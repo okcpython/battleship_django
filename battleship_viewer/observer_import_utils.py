@@ -92,14 +92,18 @@ def create_moves(game, f):
             move = game.get_next_move()
 
             first_shots_player = game.get_player_by_name(first_shots[0])
+            move.add_player_text(first_shots_player, first_shots)
             for shot in first_shots[1:]:
-                x, y = shot.split()
-                move.add_shot(first_shots_player, x, y)
+                if shot:
+                    x, y = shot.split()
+                    move.add_shot(first_shots_player, x, y)
 
             second_shots_player = game.get_player_by_name(second_shots[0])
+            move.add_player_text(second_shots_player, second_shots)
             for shot in second_shots[1:]:
-                x, y = shot.split()
-                move.add_shot(second_shots_player, x, y)
+                if shot:
+                    x, y = shot.split()
+                    move.add_shot(second_shots_player, x, y)
         except StopIteration:
             break
 
